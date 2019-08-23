@@ -8,3 +8,17 @@ before_install:
 script:
   # - docker run mavaze/docker-react npm run test -- --coverage
   - docker run -e CI=true mavaze/docker-react npm run test
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "docker-react"
+  env: "DockerReact-env"
+  bucket_name: "elasticbeanstalk-us-east-2-381972081205"
+  bucket_path: "docker-react"
+  on:
+    branch: master # deployment triggers when code changes in master branch
+  access_key_id: 
+    secure: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
